@@ -5,9 +5,11 @@
   "port": 4070,
   "rolesARE": "2 for admin, 3 for developer",
   "roles": {
-    "2": [],
+    "2": [
+      "01894253289@s.whatsapp.net"
+    ],
     "3": [
-      "8801894253289@s.whatsapp.net",
+      "01894253289@s.whatsapp.net",
       ""
     ]
   },
