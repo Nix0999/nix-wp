@@ -9,21 +9,15 @@
       "01894253289@s.whatsapp.net"
     ],
     "3": [
-      "01894253289@s.whatsapp.net",
-      ""
+      "01894253289@s.whatsapp.net"
     ]
   },
-
   "CoolDownForDev": false,
   "commentCoolDownForDev": "If true, cooldown will apply to devs too",
-
   "noPrefix": false,
-  "loginMethod": "paircode",
   "commentNoPrefix": "If true, commands can be used without a prefix",
   "loginMethod": "paircode",
-
   "support": "wa.me/+8801894253289",
-
   "storeType": "SQLITE",
   "commentForStoreType": "USE 'JSON', 'MONGO' or 'SQLITE'"
 }
