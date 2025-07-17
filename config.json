@@ -1,7 +1,7 @@
 {
-  "prefix": "/",
-  "botName": "Zayn",
-  "devsPhoneNumber": "your-phone-number@s.whatsapp.net",
+  "prefix": "!",
+  "botName": "Nix Bot",
+  "devsPhoneNumber": "8801894253289@s.whatsapp.net",
   "port": 4070,
   "rolesARE": "2 for admin, 3 for developer",
   "roles": {
