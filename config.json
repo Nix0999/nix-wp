@@ -7,7 +7,7 @@
   "roles": {
     "2": [],
     "3": [
-      "",
+      "8801894253289@s.whatsapp.net",
       ""
     ]
   },
@@ -16,11 +16,11 @@
   "commentCoolDownForDev": "If true, cooldown will apply to devs too",
 
   "noPrefix": false,
-  "loginMethod": "qrcode",
+  "loginMethod": "paircode",
   "commentNoPrefix": "If true, commands can be used without a prefix",
-  "loginMethod": "qrcode",
+  "loginMethod": "paircode",
 
-  "support": "https://chat.whatsapp.com/HaizD65XjYy6mTaUCvK8cs",
+  "support": "wa.me/+8801894253289",
 
   "storeType": "SQLITE",
   "commentForStoreType": "USE 'JSON', 'MONGO' or 'SQLITE'"
