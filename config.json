@@ -1,25 +1,24 @@
 {
   "prefix": "!",
   "botName": "Nix Bot",
-  "devsPhoneNumber": "+8801894253289@s.whatsapp.net",
-  "port": 4070,
+  "devsPhoneNumber": "8801894253289@s.whatsapp.net",
+  "port": 6969,
   "rolesARE": "2 for admin, 3 for developer",
   "roles": {
     "2": [
-      "01894253289@s.whatsapp.net",
-      "+8801894253289@s.whatsapp.net"
+      "267705848475899@lid"
     ],
     "3": [
-      "01894253289@s.whatsapp.net",
-      "+8801894253289@s.whatsapp.net"
+      "267705848475899@lid",
+      "51196614160473@lid"
     ]
   },
   "CoolDownForDev": false,
   "commentCoolDownForDev": "If true, cooldown will apply to devs too",
   "noPrefix": false,
+  "loginMethod": "qrcode",
   "commentNoPrefix": "If true, commands can be used without a prefix",
-  "loginMethod": "paircode",
-  "support": "wa.me/+8801894253289",
+  "support": "NO",
   "storeType": "SQLITE",
   "commentForStoreType": "USE 'JSON', 'MONGO' or 'SQLITE'"
 }
