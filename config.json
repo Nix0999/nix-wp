@@ -6,10 +6,12 @@
   "rolesARE": "2 for admin, 3 for developer",
   "roles": {
     "2": [
-      "01894253289@s.whatsapp.net"
+      "01894253289@s.whatsapp.net",
+      "+8801894253289@s.whatsapp.net"
     ],
     "3": [
-      "01894253289@s.whatsapp.net"
+      "01894253289@s.whatsapp.net",
+      "+8801894253289@s.whatsapp.net"
     ]
   },
   "CoolDownForDev": false,
