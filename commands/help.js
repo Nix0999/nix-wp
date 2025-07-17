@@ -66,9 +66,9 @@ for (const category in categories) {
       messageText += "╭──────────────◊\n";
       messageText += `│ » Total commands: ${totalCommands}\n`;
       messageText += "│ » A Powerful WhatsApp bot\n";
-      messageText += "│ » By JARiF\n";
+      messageText += "│ » By Aryan\n";
       messageText += "╰──────────◊\n";
-      messageText += "「 Zayn Bot 」";
+      messageText += "「 Nix Bot 」";
 
       return await message.reply(messageText);
     }
