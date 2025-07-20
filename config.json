@@ -16,7 +16,7 @@
   "CoolDownForDev": false,
   "commentCoolDownForDev": "If true, cooldown will apply to devs too",
   "noPrefix": false,
-  "loginMethod": "qrcode",
+  "loginMethod": "paircode",
   "commentNoPrefix": "If true, commands can be used without a prefix",
   "support": "NO",
   "storeType": "SQLITE",
